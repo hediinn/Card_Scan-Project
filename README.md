@@ -5,5 +5,4 @@
 
 ![alt text](/image000R.jpg)
 
-**This is a test image that i have been useing**
-**(https://github.com/JaidedAI/EasyOCR)**
+**This is a test image that i have been useing [EasyOCR](https://github.com/JaidedAI/EasyOCR)**
