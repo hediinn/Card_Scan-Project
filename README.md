@@ -6,3 +6,4 @@
 ![alt text](/image000R.jpg)
 
 **This is a test image that i have been useing**
+**This project uses easyOCR ![alt text](https://github.com/JaidedAI/EasyOCR)**
