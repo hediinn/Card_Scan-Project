@@ -18,9 +18,11 @@ if __name__=="__main__":
     window.geometry('{}x{}'.format(600,300)) #This is the size of the window
 
     #These are the frames inside the window, collours must be change
-    topFrame = tk.Frame(window,bg='cyan',width=500,height=20,pady=2)
+    topFrame = tk.Frame(window,bg='cyan',width=500,height=10,pady=2)
     imageFrame = tk.Frame(window,bg='black', width=500, height=200,padx=5,pady=5)
     SkideFrame = tk.Frame(window,bg='green',width=200,height=200,pady=4)
+    topLeftFrame = tk.Frame(window,bg='gray',width=100,height=10,pady=2)
+
     
     window.grid_rowconfigure(0, weight=1)
     window.grid_columnconfigure(0, weight=1)
@@ -33,7 +35,8 @@ if __name__=="__main__":
     #This is the grid setup for the frames
     topFrame.grid(row=0,column=0,padx=5,pady=2,sticky="news")
     imageFrame.grid(row=1, column=0, padx=5, pady=2,sticky="news")
-    SkideFrame.grid(row=1,column=1,padx=0, pady=0,sticky="news")     
+    SkideFrame.grid(row=1,column=1,padx=0, pady=0,sticky="news")
+    topLeftFrame.grid(row=0,column=1,padx=2, pady=2,sticky="news")     
 
     #This is a item inside a frame, it's bg is black becouse the frame is black
     lmain = tk.Label(imageFrame,bg="black")
@@ -83,7 +86,7 @@ if __name__=="__main__":
             croPD=frame
             result=reader.readtext(croPD,workers=2,detail=0,paragraph=True,slope_ths=0.1)
             
-            test.config(text=test.cget("text")+"\n"+result[0])
+            test.insert(tk.END,str(result[0]))
             print(result)
 
 
@@ -95,10 +98,12 @@ if __name__=="__main__":
     checkBox1=tk.Checkbutton(master=SkideFrame,text="use webcam",variable=var1,bg="green")
     checkBox1.grid(row=1,column=1,sticky="nwes")
 
-    test= tk.Label(SkideFrame,text="cards \n that have\n been scanned\n----------",bg="green")
 
+    scrollBar = tk.Scrollbar(SkideFrame)
+    test= tk.Listbox(SkideFrame,yscrollcommand=scrollBar.set)
     test.grid(row=2,column=1,sticky="news")
-     
+    scrollBar.config(command=test.yview)
+    scrollBar.grid(row=2,column=2,sticky="news")     
 
 
     window.mainloop()
