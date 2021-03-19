@@ -1,4 +1,4 @@
-**Test readme file**
+#Test readme file
 
 
 **The idea of this project is to have a program that can scan cards and send the scanned cards to either a database or a csv file**
@@ -9,3 +9,4 @@
 
 
 **In this project i have benn using [EasyOCR](https://github.com/JaidedAI/EasyOCR) it's a easy to use ocr pacage**
+
