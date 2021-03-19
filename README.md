@@ -1,8 +1,8 @@
 
-# **Card Scaner**
+# Card Scaner&nbsp; 
 
 
-**The idea of this project is to have a program that can scan cards and send the scanned cards to either a database or a csv file**
+**The idea of this project is to have a program that can scan cards and send the scanned card name to either a database or a csv file**
 
 ![alt text](/image000R.jpg)
 
