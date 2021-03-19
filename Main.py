@@ -51,7 +51,7 @@ if __name__=="__main__":
 
 
     def show_frame():# This functiom shows either the test frame or the webcam feed
-        testButton.config(state=tk.DISABLED) #this is mainly so the program dosn't crash
+        showButton.config(state=tk.DISABLED) #this is mainly so the program dosn't crash
         if var1.get()==1: # this checks if the checkbox has benn checked or not
             _, frame = cap.read()
             croPD=cv2.cv2.cvtColor(frame,cv2.cv2.COLOR_BGR2GRAY)
@@ -90,20 +90,24 @@ if __name__=="__main__":
             print(result)
 
 
-    textButton=tk.Button(master=topFrame,text="Scan Frame",command=rLine)
-    textButton.grid(row=0,column=0)
+    ScanButton=tk.Button(master=topFrame,text="Scan Frame",command=rLine)
+    ScanButton.grid(row=0,column=0)
     
-    testButton=tk.Button(master=topFrame,text="Show Frame",command=show_frame)
-    testButton.grid(row=0,column=2)
+    showButton=tk.Button(master=topFrame,text="Show Frame",command=show_frame)
+    showButton.grid(row=0,column=1)
+    
     checkBox1=tk.Checkbutton(master=SkideFrame,text="use webcam",variable=var1,bg="green")
-    checkBox1.grid(row=1,column=1,sticky="nwes")
+    checkBox1.grid(row=0,column=0,sticky="nwes")
 
+    deleteSelectedbot=tk.Button(master=topLeftFrame,text="Delete\nSellected")
 
-    scrollBar = tk.Scrollbar(SkideFrame)
-    test= tk.Listbox(SkideFrame,yscrollcommand=scrollBar.set)
-    test.grid(row=2,column=1,sticky="news")
+    scrollBar = tk.Scrollbar(master=SkideFrame)
+    
+    test= tk.Listbox(master=SkideFrame,yscrollcommand=scrollBar.set)
+    test.grid(row=1,column=0,sticky="news")
     scrollBar.config(command=test.yview)
-    scrollBar.grid(row=2,column=2,sticky="news")     
+    scrollBar.grid(row=1,column=1,sticky="news")
+    deleteSelectedbot.grid(row=0,column=0)     
 
 
     window.mainloop()
