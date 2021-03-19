@@ -12,6 +12,6 @@
 **This is a test image that i have been using**&nbsp;  
   
 
-**In this project i have benn using [EasyOCR](https://github.com/JaidedAI/EasyOCR) it's a easy to use ocr pacage**&nbsp;   
-
-  
+In this project i have benn using [EasyOCR](https://github.com/JaidedAI/EasyOCR) it's a easy to use ocr pacage&nbsp;   
+In [EasyOCR](https://github.com/JaidedAI/EasyOCR) it's noted that:  
+>>Note 1: for Windows, please install torch and torchvision first by following the official instruction here https://pytorch.org. On pytorch website, be sure to select the right CUDA version you have. If you intend to run on CPU mode only, select CUDA = None.
