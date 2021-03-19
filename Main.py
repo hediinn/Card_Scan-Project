@@ -88,7 +88,11 @@ if __name__=="__main__":
             
             test.insert(tk.END,str(result[0]))
             print(result)
-
+    def deleteSelectedItem():
+        sel = test.curselection()
+        print(sel)
+        for index in sel[::-1]:
+            test.delete(index)
 
     ScanButton=tk.Button(master=topFrame,text="Scan Frame",command=rLine)
     ScanButton.grid(row=0,column=0)
@@ -99,16 +103,16 @@ if __name__=="__main__":
     checkBox1=tk.Checkbutton(master=SkideFrame,text="use webcam",variable=var1,bg="green")
     checkBox1.grid(row=0,column=0,sticky="nwes")
 
-    deleteSelectedbot=tk.Button(master=topLeftFrame,text="Delete\nSellected")
 
     scrollBar = tk.Scrollbar(master=SkideFrame)
     
-    test= tk.Listbox(master=SkideFrame,yscrollcommand=scrollBar.set)
+    test= tk.Listbox(master=SkideFrame,yscrollcommand=scrollBar.set,selectmode=tk.MULTIPLE)
     test.grid(row=1,column=0,sticky="news")
     scrollBar.config(command=test.yview)
     scrollBar.grid(row=1,column=1,sticky="news")
-    deleteSelectedbot.grid(row=0,column=0)     
 
+    deleteSelectedbot=tk.Button(master=topLeftFrame,text="Delete\nSellected",command=deleteSelectedItem)
+    deleteSelectedbot.grid(row=0,column=0)     
 
     window.mainloop()
 
