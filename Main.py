@@ -15,12 +15,12 @@ if __name__=="__main__":
     #This is the tkinter window setup
     window = tk.Tk()
     window.wm_title("test") #title of the window is test, needs to be changed
-    window.geometry('{}x{}'.format(600,300)) #This is the size of the window
+    window.geometry('{}x{}'.format(1000,300)) #This is the size of the window
 
     #These are the frames inside the window, collours must be change
     topFrame = tk.Frame(window,bg='cyan',width=500,height=10,pady=2)
-    imageFrame = tk.Frame(window,bg='black', width=500, height=200,padx=5,pady=5)
-    SkideFrame = tk.Frame(window,bg='green',width=200,height=200,pady=4)
+    imageFrame = tk.Frame(window,bg='black', width=600, height=200,padx=5,pady=5)
+    SkideFrame = tk.Frame(window,bg='green',width=400,height=200,pady=4)
     topLeftFrame = tk.Frame(window,bg='gray',width=100,height=10,pady=2)
 
     
@@ -55,7 +55,7 @@ if __name__=="__main__":
         if var1.get()==1: # this checks if the checkbox has benn checked or not
             _, frame = cap.read()
             croPD=cv2.cv2.cvtColor(frame,cv2.cv2.COLOR_BGR2GRAY)
-            croPD= croPD[320:520,0:500]
+            croPD= croPD[320:520,0:1300]
             img = Image.fromarray(croPD)
             imgtk = ImageTk.PhotoImage(image=img)
             lmain.imgtk = imgtk
@@ -76,16 +76,15 @@ if __name__=="__main__":
             _, frame = cap.read()
             frame= cv2.cv2.cvtColor(frame,cv2.cv2.COLOR_BGR2GRAY)
             croPD=frame
-            croPD= croPD[320:520,0:750]
+            croPD= croPD[320:520,0:1300]
             result = reader.readtext(croPD,workers=2,detail=0,paragraph=True,slope_ths=0.1)
+            test.insert(tk.END,str(result[0]))
             print(result[0])
-            test.config(text=test.cget("text")+"\n"+result[0])
         elif var1.get()==0:
             frame=cv2.cv2.imread("image000R.jpg")
             frame=cv2.cv2.cvtColor(frame,cv2.cv2.COLOR_BGR2GRAY)
             croPD=frame
             result=reader.readtext(croPD,workers=2,detail=0,paragraph=True,slope_ths=0.1)
-            
             test.insert(tk.END,str(result[0]))
             print(result)
     def deleteSelectedItem():

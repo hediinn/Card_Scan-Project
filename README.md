@@ -11,3 +11,7 @@
 
 **In this project i have benn using [EasyOCR](https://github.com/JaidedAI/EasyOCR) it's a easy to use ocr pacage**
 
+#TODO LIST
+* Add a loading bar for the start of the Program   
+* Swap test image with a Image with the name test
+* MySQL and CSV fuctions
