@@ -1,15 +1,26 @@
 
-#Test readme file
+# Card Scaner&nbsp; 
+                            
+                                
+**The idea of this project is to have a program that can scan cards and send the scanned card name to either a database or a csv file**
+#  
+#  
+#  
+![alt text](/image000R.jpg)  
 
 
-**The idea of this project is to have a program that can scan cards and send the scanned cards to either a database or a csv file**
+**This is a test image that i have been using**&nbsp;  
+  
 
-![alt text](/image000R.jpg)
+In this project i have benn using [EasyOCR](https://github.com/JaidedAI/EasyOCR) it's a easy to use ocr pacage&nbsp;  
+Please read that project  
 
-**This is a test image that i have been using**
-
-
-**In this project i have benn using [EasyOCR](https://github.com/JaidedAI/EasyOCR) it's a easy to use ocr pacage**
+In [EasyOCR](https://github.com/JaidedAI/EasyOCR) it's noted that:  
+>Install using `pip` for stable release,
+>``` bash
+>pip install easyocr
+>```
+>Note 1: for Windows, please install torch and torchvision first by following the official instruction here https://pytorch.org. On pytorch website, be sure to select the right CUDA version you have. If you intend to run on CPU mode only, select CUDA = None.
 
 #TODO LIST
 * Add a loading bar for the start of the Program   
