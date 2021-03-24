@@ -1,2 +1,3 @@
 *.pth
 tessdata/mtg.traineddata
+__pycache__/DbSFCVS.cpython-38.pyc
