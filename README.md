@@ -25,4 +25,4 @@ In [EasyOCR](https://github.com/JaidedAI/EasyOCR) it's noted that:
 #TODO LIST
 * Add a loading bar for the start of the Program   
 * Swap test image with a Image with the name test
-* MySQL and CSV fuctions
+* ~~MySQL~~   CSV and scryfall fuctions 
