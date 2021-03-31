@@ -4,6 +4,9 @@ import numpy as np
 import torch
 import tkinter as tk
 from PIL import Image, ImageTk
+import DbSFCVS as SQL
+import random
+from mtgsdk import Card
 #these are the imports i will use
 
 
@@ -73,25 +76,48 @@ if __name__=="__main__":
     
     def rLine():
         if var1.get()==1:
-            _, frame = cap.read()
-            frame= cv2.cv2.cvtColor(frame,cv2.cv2.COLOR_BGR2GRAY)
-            croPD=frame
-            croPD= croPD[320:520,0:1300]
-            result = reader.readtext(croPD,workers=2,detail=0,paragraph=True,slope_ths=0.1)
-            test.insert(tk.END,str(result[0]))
-            print(result[0])
+            try:
+                _, frame = cap.read()
+                frame= cv2.cv2.cvtColor(frame,cv2.cv2.COLOR_BGR2GRAY)
+                croPD=frame
+                croPD= croPD[320:520,0:1300]
+                result = reader.readtext(croPD,workers=2,detail=0,paragraph=True,slope_ths=0.1)
+                listOfCards.insert(tk.END,str(result[0]))
+            except:
+                print("test")
         elif var1.get()==0:
-            frame=cv2.cv2.imread("image000R.jpg")
-            frame=cv2.cv2.cvtColor(frame,cv2.cv2.COLOR_BGR2GRAY)
-            croPD=frame
-            result=reader.readtext(croPD,workers=2,detail=0,paragraph=True,slope_ths=0.1)
-            test.insert(tk.END,str(result[0]))
-            print(result)
+            try:
+                frame=cv2.cv2.imread("image000R.jpg")
+                frame=cv2.cv2.cvtColor(frame,cv2.cv2.COLOR_BGR2GRAY)
+                croPD=frame
+                result=reader.readtext(croPD,workers=2,detail=0,paragraph=True,slope_ths=0.1)
+                listOfCards.insert(tk.END,str(result[0]))
+            except:
+                print("test")
+    
     def deleteSelectedItem():
-        sel = test.curselection()
+        sel = listOfCards.curselection()
         print(sel)
         for index in sel[::-1]:
-            test.delete(index)
+            listOfCards.delete(index)
+
+    def checkSelItem():
+        sel= listOfCards.curselection()
+        for i in sel[::-1]:
+            ser =SQL.SQL()
+            checkdText = ser.refSerch(listOfCards.get(i))
+            print(checkdText)
+            print(Card.find(listOfCards.get(i)))
+            if checkdText[0]!= listOfCards.get(i):
+                print(str(checkdText[0]))
+                listOfCards.insert(tk.END,checkdText[0])
+
+    def addCardToBox():
+        listOfRCards=["Domri's Ambush","Viviens Grizzly","Skywhalers Shot"]
+        listOfCards.insert(tk.END,listOfRCards[random.randint(0, 2)])
+
+
+
 
     ScanButton=tk.Button(master=topFrame,text="Scan Frame",command=rLine)
     ScanButton.grid(row=0,column=0)
@@ -104,14 +130,19 @@ if __name__=="__main__":
 
 
     scrollBar = tk.Scrollbar(master=SkideFrame)
-    
-    test= tk.Listbox(master=SkideFrame,yscrollcommand=scrollBar.set,selectmode=tk.MULTIPLE)
-    test.grid(row=1,column=0,sticky="news")
-    scrollBar.config(command=test.yview)
+    listOfCards= tk.Listbox(master=SkideFrame,yscrollcommand=scrollBar.set,selectmode=tk.MULTIPLE)
+    listOfCards.grid(row=1,column=0,sticky="news")
+    scrollBar.config(command=listOfCards.yview)
     scrollBar.grid(row=1,column=1,sticky="news")
 
     deleteSelectedbot=tk.Button(master=topLeftFrame,text="Delete\nSellected",command=deleteSelectedItem)
     deleteSelectedbot.grid(row=0,column=0)     
+
+    checkSelBot=tk.Button(master=topLeftFrame,text="Check\nSellected",command=checkSelItem)
+    checkSelBot.grid(row=0,column=1) 
+
+    addRandom=tk.Button(master=topLeftFrame,text="Add\ncard",command=addCardToBox)
+    addRandom.grid(row=1,column=0) 
 
     window.mainloop()
 
