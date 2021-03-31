@@ -74,7 +74,7 @@ if __name__=="__main__":
             lmain.after(10,show_frame)
         
     
-    def rLine():
+    def rLine(): #this is a fuction that scans whats intfron of the webcam or scans the test image
         if var1.get()==1:
             try:
                 _, frame = cap.read()
@@ -111,7 +111,8 @@ if __name__=="__main__":
             if checkdText[0]!= listOfCards.get(i):
                 print(str(checkdText[0]))
                 listOfCards.insert(tk.END,checkdText[0])
-
+    
+    #this is a function for adding a card to the listbox so that i check if the checkSelIttem fuction works
     def addCardToBox():
         listOfRCards=["Domri's Ambush","Viviens Grizzly","Skywhalers Shot"]
         listOfCards.insert(tk.END,listOfRCards[random.randint(0, 2)])
