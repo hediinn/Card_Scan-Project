@@ -2,9 +2,10 @@ import mysql.connector
 import requests as req
 import json
 
-class SQL:
-  def __init__(self):
-    self.mydb = mysql.connector.connect(host="localhost",user="root",password="",database="mtg")
+class SQL():
+  def __init__(self,db="mtg"):
+    self.db = db
+    self.mydb = mysql.connector.connect(host="localhost",user="root",password="",database=self.db)
    
   def searchFun(self,Key):
     mycursor =self.mydb.cursor()
@@ -21,6 +22,11 @@ class SQL:
       return test
     else:
       return self.searchFun(IDK)
+  def sendCard(self,name):
+        print(name)
+        mycursor=self.mydb.cursor()
+        mycursor.execute('INSERT INTO `scanedcards` (`name`) Values ("{}")'.format(name))
+        self.mydb.commit()
 class CSV:
   def __init__(self):
     pass
@@ -33,6 +39,4 @@ class Scryfall():
       raise ConnectionAbortedError('Cannot fetch all tasks: {}'.format(self.reqa.status_code))
     self.realName = self.reqa.json()['data'][0]['name']
     self.count = self.reqa.json()['total_cards']
-
-  
 
