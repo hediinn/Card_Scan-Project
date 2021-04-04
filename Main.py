@@ -6,7 +6,8 @@ import tkinter as tk
 from PIL import Image, ImageTk
 import DbSFCVS as SQL
 import random
-from mtgsdk import Card
+import time
+#from mtgsdk import Card
 #these are the imports i will use
 
 
@@ -48,7 +49,7 @@ if __name__=="__main__":
     cap = cv2.cv2.VideoCapture(0,cv2.cv2.CAP_DSHOW)# this is for taking the webcam feed
 
     var1= tk.IntVar() #this is for the checkbox so it is posible to check if it has been checked
-
+    var2 = tk.IntVar()
     reader = easyocr.Reader(['en'],gpu=True,model_storage_directory="tessdata")
     #This is the reader function, I chose to load it early so that the largest part of lagines is at the start 
 
@@ -65,7 +66,7 @@ if __name__=="__main__":
             lmain.configure(image=imgtk)
             lmain.after(10, show_frame)
         elif var1.get()==0:
-            frame=cv2.cv2.imread("image000R.jpg")
+            frame=cv2.imread(r'Card_Scan-Project\image000R.jpg')
             croPD=cv2.cv2.cvtColor(frame,cv2.cv2.COLOR_BGR2GRAY)
             img = Image.fromarray(croPD)
             imgtk = ImageTk.PhotoImage(image=img)
@@ -87,7 +88,7 @@ if __name__=="__main__":
                 print("test")
         elif var1.get()==0:
             try:
-                frame=cv2.cv2.imread("image000R.jpg")
+                frame=cv2.cv2.imread(r'Card_Scan-Project\image000R.jpg')
                 frame=cv2.cv2.cvtColor(frame,cv2.cv2.COLOR_BGR2GRAY)
                 croPD=frame
                 result=reader.readtext(croPD,workers=2,detail=0,paragraph=True,slope_ths=0.1)
@@ -97,21 +98,26 @@ if __name__=="__main__":
     
     def deleteSelectedItem():
         sel = listOfCards.curselection()
-        print(sel)
         for index in sel[::-1]:
             listOfCards.delete(index)
 
     def checkSelItem():
         sel= listOfCards.curselection()
         for i in sel[::-1]:
-            ser =SQL.SQL()
-            checkdText = ser.refSerch(listOfCards.get(i))
-            print(checkdText)
-            print(Card.find(listOfCards.get(i)))
-            if checkdText[0]!= listOfCards.get(i):
-                print(str(checkdText[0]))
-                listOfCards.insert(tk.END,checkdText[0])
+            time.sleep(0.1)
+            ser =SQL.Scryfall(listOfCards.get(i))
+            checkdText = ser.realName
+            if checkdText != listOfCards.get(i):
+                listOfCards.delete(i)
+                listOfCards.insert(i,checkdText)
+                
     
+    def addCardToDB():
+        sel= listOfCards.curselection()
+        for i in sel[::-1]:
+            db= SQL.SQL(db="cards")
+            db.sendCard(str(listOfCards.get(i)))
+
     #this is a function for adding a card to the listbox so that i check if the checkSelIttem fuction works
     def addCardToBox():
         listOfRCards=["Domri's Ambush","Viviens Grizzly","Skywhalers Shot"]
@@ -121,11 +127,15 @@ if __name__=="__main__":
 
 
     ScanButton=tk.Button(master=topFrame,text="Scan Frame",command=rLine)
-    ScanButton.grid(row=0,column=0)
+    ScanButton.grid(row=0,column=0,padx=5,pady=2)
     
     showButton=tk.Button(master=topFrame,text="Show Frame",command=show_frame)
-    showButton.grid(row=0,column=1)
-    
+    showButton.grid(row=0,column=1,padx=5,pady=2)
+    checkBox2=tk.Checkbutton(master=topFrame,text="Use database",variable=var2,bg="cyan")
+    checkBox2.grid(row=1,column=0,sticky="nwes")
+    sendToFiOrDb=tk.Button(master=topFrame,text="send to db\n or file",command=addCardToDB)
+    sendToFiOrDb.grid(row=1,column=1,padx=5,pady=2)   
+
     checkBox1=tk.Checkbutton(master=SkideFrame,text="use webcam",variable=var1,bg="green")
     checkBox1.grid(row=0,column=0,sticky="nwes")
 
