@@ -54,6 +54,7 @@ if __name__=="__main__":
     #This is the reader function, I chose to load it early so that the largest part of lagines is at the start 
 
 
+
     def show_frame():# This functiom shows either the test frame or the webcam feed
         showButton.config(state=tk.DISABLED) #this is mainly so the program dosn't crash
         if var1.get()==1: # this checks if the checkbox has benn checked or not
