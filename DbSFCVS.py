@@ -1,7 +1,7 @@
 import mysql.connector
 import requests as req
 import json
-
+from openpyxl import Workbook,load_workbook,chart
 class SQL():
   def __init__(self,db="mtg"):
     self.db = db
@@ -27,9 +27,25 @@ class SQL():
         mycursor=self.mydb.cursor()
         mycursor.execute('INSERT INTO `scanedcards` (`name`) Values ("{}")'.format(name))
         self.mydb.commit()
+
 class CSV:
   def __init__(self):
-    pass
+    try:
+      self.wb = load_workbook("sample.xlsx")
+    except:
+      self.wb = Workbook()
+    # grab the active worksheet
+    self.ws = self.wb.active
+  # Data can be assigned directly to cells
+  
+  def InPutData(self,ID,name):
+    sed = self.wb.reference.Reference(worksheet=self.wb).rows()
+    print (sed)
+    self.ws.append([ID,name])
+  # Save the file
+    self.wb.save("sample.xlsx")
+
+    
 class Scryfall():
   def __init__(self,name):
     self.name = name
@@ -40,3 +56,5 @@ class Scryfall():
     self.realName = self.reqa.json()['data'][0]['name']
     self.count = self.reqa.json()['total_cards']
 
+cs=CSV()
+cs.InPutData(10, "thest")
