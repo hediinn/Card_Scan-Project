@@ -3,3 +3,4 @@ tessdata/mtg.traineddata
 __pycache__/DbSFCVS.cpython-38.pyc
 .vscode/settings.json
 *pyc
+*.xlsx
