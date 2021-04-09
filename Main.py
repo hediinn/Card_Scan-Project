@@ -50,7 +50,6 @@ if __name__=="__main__":
 
     var1= tk.IntVar() #this is for the checkbox so it is posible to check if it has been checked
     var2 = tk.IntVar()
-    global VaribleX = 0
     reader = easyocr.Reader(['en'],gpu=True,model_storage_directory="tessdata")
     #This is the reader function, I chose to load it early so that the largest part of lagines is at the start 
 
@@ -122,11 +121,11 @@ if __name__=="__main__":
                 db= SQL.SQL(db="cards")
                 db.sendCard(str(listOfCards.get(i)))
         elif var2.get()==0:
-            global VaribleX =global VaribleX+1
+            
             sel= listOfCards.curselection()
             for i in sel[::-1]:
                 db = SQL.CSV()
-                db.InPutData(VaribleX, str(listOfCards.get(i)))
+                db.InPutData(, str(listOfCards.get(i)))
 
     #this is a function for adding a card to the listbox so that i check if the checkSelIttem fuction works
     def addCardToBox():
