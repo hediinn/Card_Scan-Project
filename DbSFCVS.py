@@ -39,8 +39,6 @@ class CSV:
   # Data can be assigned directly to cells
   
   def InPutData(self,ID,name):
-    sed = self.wb.reference.Reference(worksheet=self.wb).rows()
-    print (sed)
     self.ws.append([ID,name])
   # Save the file
     self.wb.save("sample.xlsx")
@@ -55,6 +53,3 @@ class Scryfall():
       raise ConnectionAbortedError('Cannot fetch all tasks: {}'.format(self.reqa.status_code))
     self.realName = self.reqa.json()['data'][0]['name']
     self.count = self.reqa.json()['total_cards']
-
-cs=CSV()
-cs.InPutData(10, "thest")
