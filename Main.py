@@ -14,37 +14,40 @@ import time
 if __name__=="__main__":
 #if __main__: sentens
 
-
+    lGray ='gray60'
+    dGray ='gray'
+    tFrStic = "NEW"
 
     #This is the tkinter window setup
     window = tk.Tk()
-    window.wm_title("test") #title of the window is test, needs to be changed
-    window.geometry('{}x{}'.format(1200,300)) #This is the size of the window
+    window.wm_title("Magic Card Scanner") 
+    window.geometry('{}x{}'.format(1200,600)) #This is the size of the window
 
     #These are the frames inside the window, collours must be change
-    topFrame = tk.Frame(window,bg='gray60',width=520,height=10,pady=2)
-    imageFrame = tk.Frame(window,bg='black', width=520, height=200,padx=5,pady=5)
-    SkideFrame = tk.Frame(window,bg='gray60',width=300,height=200,pady=4)
-    topLeftFrame = tk.Frame(window,bg='gray60',width=300,height=10,pady=2)
+    topFrame = tk.Frame(window,bg=lGray,width=700,height=10,pady=2)
+    imageFrame = tk.Frame(window,bg='black', width=700, height=400,padx=5,pady=2)
+    SkideFrame = tk.Frame(window,bg=lGray,width=300,height=400,pady=2)
+    topRightFrame = tk.Frame(window,bg=lGray,width=300,height=10,pady=2)
+     
 
-    
-    window.grid_rowconfigure(0, weight=1)
+    ''' window.grid_rowconfigure(0, weight=1)
     window.grid_columnconfigure(0, weight=1)
     window.grid_rowconfigure(1, weight=1)
     window.grid_columnconfigure(1, weight=1)
     window.grid_rowconfigure(1, weight=1)
     window.grid_columnconfigure(501, weight=1)
-
+ '''
 
     #This is the grid setup for the frames
-    topFrame.grid(row=0,column=0,padx=5,pady=2,sticky="news")
+    topFrame.grid(row=0,column=0,padx=5,pady=2,sticky=tFrStic)
     imageFrame.grid(row=1, column=0, padx=5, pady=2,sticky="news")
-    SkideFrame.grid(row=1,column=1,padx=0, pady=0,sticky="news")
-    topLeftFrame.grid(row=0,column=1,padx=2, pady=2,sticky="news")     
+
+    SkideFrame.grid(row=1,column=1,padx=2, pady=2,sticky="news")
+    topRightFrame.grid(row=0,column=1,padx=2, pady=2,sticky=tFrStic)     
 
     #This is a item inside a frame, it's bg is black becouse the frame is black
     lmain = tk.Label(imageFrame,bg="black")
-    lmain.grid(row=1, column=0)# It's possion in the grid
+    lmain.grid(row=0, column=0)# It's possion in the grid
 
     cap = cv2.cv2.VideoCapture(0,cv2.cv2.CAP_DSHOW)# this is for taking the webcam feed
 
@@ -115,23 +118,22 @@ if __name__=="__main__":
     
     def addCardToDB():
         
-        if var2.get() ==1:
-            sel= listOfCards.curselection()
-            for i in sel[::-1]:
+        sel= listOfCards.curselection()
+        for value,i in enumerate( sel[::-1]):
+            if var2.get() ==1:
                 db= SQL.SQL(db="cards")
                 db.sendCard(str(listOfCards.get(i)))
-        elif var2.get()==0:
-            
-            sel= listOfCards.curselection()
-            for i in sel[::-1]:
+                listOfCards.selection_clear(i)
+            elif var2.get()==0:
                 db = SQL.CSV()
-                db.InPutData(, str(listOfCards.get(i)))
+                db.InPutData(value, str(listOfCards.get(i)))
+                listOfCards.selection_clear(i)
 
     #this is a function for adding a card to the listbox so that i check if the checkSelIttem fuction works
     def addCardToBox():
 
-        listOfRCards=["Domri's Ambush","Viviens Grizzly","Skywhalers Shot"]
-        listOfCards.insert(tk.END,listOfRCards[random.randint(0, 2)])
+        listOfRCards=["Domri's Ambush","Viviens Grizzly","Skywhalers Shot","Teferi's Ageless Insight"]
+        listOfCards.insert(tk.END,listOfRCards[random.randint(0, 3)])
 
 
 
@@ -140,28 +142,28 @@ if __name__=="__main__":
     
     showButton=tk.Button(master=topFrame,text="Show Frame",command=show_frame)
     showButton.grid(row=0,column=1,padx=5,pady=2)
-    checkBox2=tk.Checkbutton(master=topFrame,text="Use database",variable=var2,bg="gray")
+    checkBox2=tk.Checkbutton(master=topFrame,text="Use database",variable=var2,bg=dGray)
     checkBox2.grid(row=1,column=0,sticky="nwes")
     sendToFiOrDb=tk.Button(master=topFrame,text="send to db\n or file",command=addCardToDB)
     sendToFiOrDb.grid(row=1,column=1,padx=5,pady=2)   
 
-    checkBox1=tk.Checkbutton(master=SkideFrame,text="use webcam",variable=var1,bg="gray")
+    checkBox1=tk.Checkbutton(master=SkideFrame,text="use webcam",variable=var1,bg=dGray)
     checkBox1.grid(row=0,column=0,sticky="nwes")
 
 
     scrollBar = tk.Scrollbar(master=SkideFrame)
-    listOfCards= tk.Listbox(master=SkideFrame,yscrollcommand=scrollBar.set,selectmode=tk.MULTIPLE,width=70)
+    listOfCards= tk.Listbox(master=SkideFrame,yscrollcommand=scrollBar.set,selectmode=tk.MULTIPLE,width=70,height=27)
     listOfCards.grid(row=1,column=0,sticky="news")
     scrollBar.config(command=listOfCards.yview)
     scrollBar.grid(row=1,column=1,sticky="news")
 
-    deleteSelectedbot=tk.Button(master=topLeftFrame,text="Delete\nSellected",command=deleteSelectedItem)
+    deleteSelectedbot=tk.Button(master=topRightFrame,text="Delete\nSellected",command=deleteSelectedItem)
     deleteSelectedbot.grid(row=0,column=0,sticky="news")     
 
-    checkSelBot=tk.Button(master=topLeftFrame,text="Check\nSellected",command=checkSelItem)
+    checkSelBot=tk.Button(master=topRightFrame,text="Check\nSellected",command=checkSelItem)
     checkSelBot.grid(row=0,column=1,sticky="news") 
 
-    addRandom=tk.Button(master=topLeftFrame,text="Add\ncard",command=addCardToBox)
+    addRandom=tk.Button(master=topRightFrame,text="Add\ncard",command=addCardToBox)
     addRandom.grid(row=1,column=0,sticky="news") 
 
     window.mainloop()
