@@ -61,6 +61,3 @@ class Scryfall():
       raise ConnectionAbortedError('Cannot fetch all tasks: {}'.format(self.reqa.status_code))
     self.realName = self.reqa.json()['data'][0]['name']
     self.count = self.reqa.json()['total_cards']
-
-
-SQL()
