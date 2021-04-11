@@ -4,3 +4,4 @@ __pycache__/DbSFCVS.cpython-38.pyc
 .vscode/settings.json
 *pyc
 *.xlsx
+*.ini
