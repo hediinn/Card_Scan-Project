@@ -25,7 +25,7 @@ if __name__=="__main__":
 
     #These are the frames inside the window, collours must be change
     topFrame = tk.Frame(window,bg=lGray,width=700,height=10,pady=2)
-    imageFrame = tk.Frame(window,bg='black', width=700, height=400,padx=5,pady=2)
+    imageFrame = tk.Frame(window,bg='black', width=700, height=200,padx=5,pady=2)
     SkideFrame = tk.Frame(window,bg=lGray,width=300,height=400,pady=2)
     topRightFrame = tk.Frame(window,bg=lGray,width=300,height=10,pady=2)
      
@@ -40,7 +40,7 @@ if __name__=="__main__":
 
     #This is the grid setup for the frames
     topFrame.grid(row=0,column=0,padx=5,pady=2,sticky=tFrStic)
-    imageFrame.grid(row=1, column=0, padx=5, pady=2,sticky="news")
+    imageFrame.grid(row=1, column=0, padx=5, pady=2)
 
     SkideFrame.grid(row=1,column=1,padx=2, pady=2,sticky="news")
     topRightFrame.grid(row=0,column=1,padx=2, pady=2,sticky=tFrStic)     
@@ -53,6 +53,11 @@ if __name__=="__main__":
 
     var1= tk.IntVar() #this is for the checkbox so it is posible to check if it has been checked
     var2 = tk.IntVar()
+    var3 = tk.StringVar()
+    ResizeX0 = 200
+    ResizeY0 = 150
+    ResizeX = 1000
+    ResizeY = 1300
     reader = easyocr.Reader(['en'],gpu=True,model_storage_directory="tessdata")
     #This is the reader function, I chose to load it early so that the largest part of lagines is at the start 
 
@@ -63,7 +68,7 @@ if __name__=="__main__":
         if var1.get()==1: # this checks if the checkbox has benn checked or not
             _, frame = cap.read()
             croPD=cv2.cv2.cvtColor(frame,cv2.cv2.COLOR_BGR2GRAY)
-            croPD= croPD[320:520,0:1300]
+            croPD= croPD[ResizeX0:ResizeX,ResizeY0:ResizeY]
             img = Image.fromarray(croPD)
             imgtk = ImageTk.PhotoImage(image=img)
             lmain.imgtk = imgtk
@@ -72,6 +77,7 @@ if __name__=="__main__":
         elif var1.get()==0:
             frame=cv2.imread(r"image000R.jpg")
             croPD=cv2.cv2.cvtColor(frame,cv2.cv2.COLOR_BGR2GRAY)
+            croPD= croPD
             img = Image.fromarray(croPD)
             imgtk = ImageTk.PhotoImage(image=img)
             lmain.imgtk = imgtk
@@ -84,8 +90,7 @@ if __name__=="__main__":
             try:
                 _, frame = cap.read()
                 frame= cv2.cv2.cvtColor(frame,cv2.cv2.COLOR_BGR2GRAY)
-                croPD=frame
-                croPD= croPD[320:520,0:1300]
+                croPD=frame[ResizeX0:ResizeX,ResizeY0:ResizeY]
                 result = reader.readtext(croPD,workers=2,detail=0,paragraph=True,slope_ths=0.1)
                 listOfCards.insert(tk.END,str(result[0]))
             except:
@@ -109,11 +114,16 @@ if __name__=="__main__":
         sel= listOfCards.curselection()
         for i in sel[::-1]:
             time.sleep(0.1)
-            ser =SQL.Scryfall(listOfCards.get(i))
-            checkdText = ser.realName
-            if checkdText != listOfCards.get(i):
-                listOfCards.delete(i)
-                listOfCards.insert(i,checkdText)
+            try:
+                ser =SQL.Scryfall(listOfCards.get(i))
+                checkdText = ser.realName
+                if checkdText != listOfCards.get(i):
+                    listOfCards.delete(i)
+                    listOfCards.insert(i,checkdText)
+                listOfCards.selection_clear(i)
+            except notfixt:
+                print("name to wrong, fix whit entryBox")
+            
                 
     
     def addCardToDB():
@@ -134,6 +144,8 @@ if __name__=="__main__":
 
         listOfRCards=["Domri's Ambush","Viviens Grizzly","Skywhalers Shot","Teferi's Ageless Insight"]
         listOfCards.insert(tk.END,listOfRCards[random.randint(0, 3)])
+    def reZiseImg():
+        pass
 
 
 
@@ -146,11 +158,14 @@ if __name__=="__main__":
     checkBox2.grid(row=1,column=0,sticky="nwes")
     sendToFiOrDb=tk.Button(master=topFrame,text="send to db\n or file",command=addCardToDB)
     sendToFiOrDb.grid(row=1,column=1,padx=5,pady=2)   
+    reziseWebCam=tk.Button(master=topFrame,text="Resize Image",command=reZiseImg)
+    reziseWebCam.grid(row=0,column=2,padx=5,pady=2)   
+    reziseEntry=tk.Entry(master=topFrame,textvariable=var3)
+    reziseEntry.grid(row=1,column=2,padx=5,pady=2) 
+
 
     checkBox1=tk.Checkbutton(master=SkideFrame,text="use webcam",variable=var1,bg=dGray)
     checkBox1.grid(row=0,column=0,sticky="nwes")
-
-
     scrollBar = tk.Scrollbar(master=SkideFrame)
     listOfCards= tk.Listbox(master=SkideFrame,yscrollcommand=scrollBar.set,selectmode=tk.MULTIPLE,width=70,height=27)
     listOfCards.grid(row=1,column=0,sticky="news")
