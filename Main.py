@@ -121,7 +121,7 @@ if __name__=="__main__":
         sel= listOfCards.curselection()
         for value,i in enumerate( sel[::-1]):
             if var2.get() ==1:
-                db= SQL.SQL(db="cards")
+                db= SQL.SQL()
                 db.sendCard(str(listOfCards.get(i)))
                 listOfCards.selection_clear(i)
             elif var2.get()==0:
