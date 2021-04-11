@@ -29,7 +29,7 @@ In [EasyOCR](https://github.com/JaidedAI/EasyOCR) it's noted that:
 
 - Add a loading bar for the start of the Program
 - Swap test image with a Image with the name test
-- ~~MySQL~~ , <span style="color:orange;">CSV</span> and ~~scryfall~~ fuctions (MySQL is half'ly added whit XAMPP)
+- ~~MySQL~~ , <span style="color:orange;"> CSV, .txt & something </span> and ~~scryfall~~ fuctions (MySQL is half'ly added whit XAMPP)
 - Chose either to create a new DB for the scanns or if to put them into an old
 - Speed up scanning
 - ~~Add test fuctions for adding cards to listbox~~
