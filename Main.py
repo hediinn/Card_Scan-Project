@@ -3,6 +3,7 @@ import cv2
 import numpy as np
 import torch
 import tkinter as tk
+from tkinter import simpledialog
 from PIL import Image, ImageTk
 import DbSFCVS as SQL
 import random
@@ -30,13 +31,6 @@ if __name__=="__main__":
     topRightFrame = tk.Frame(window,bg=lGray,width=300,height=10,pady=2)
      
 
-    ''' window.grid_rowconfigure(0, weight=1)
-    window.grid_columnconfigure(0, weight=1)
-    window.grid_rowconfigure(1, weight=1)
-    window.grid_columnconfigure(1, weight=1)
-    window.grid_rowconfigure(1, weight=1)
-    window.grid_columnconfigure(501, weight=1)
- '''
 
     #This is the grid setup for the frames
     topFrame.grid(row=0,column=0,padx=5,pady=2,sticky=tFrStic)
@@ -144,8 +138,14 @@ if __name__=="__main__":
 
         listOfRCards=["Domri's Ambush","Viviens Grizzly","Skywhalers Shot","Teferi's Ageless Insight"]
         listOfCards.insert(tk.END,listOfRCards[random.randint(0, 3)])
-    def reZiseImg():
-        pass
+    def editTextBox():
+        sel = listOfCards.curselection()
+        for i in sel[::-1]:
+            nav= listOfCards.get(i)
+            userInp = simpledialog.askstring(title="test", prompt="Current name: \n"+ str(nav)+"\n Press ok to change to what you have typed")
+            listOfCards.delete(i)
+            listOfCards.insert(i,userInp)
+
 
 
 
@@ -154,14 +154,16 @@ if __name__=="__main__":
     
     showButton=tk.Button(master=topFrame,text="Show Frame",command=show_frame)
     showButton.grid(row=0,column=1,padx=5,pady=2)
+    
     checkBox2=tk.Checkbutton(master=topFrame,text="Use database",variable=var2,bg=dGray)
     checkBox2.grid(row=1,column=0,sticky="nwes")
+    
     sendToFiOrDb=tk.Button(master=topFrame,text="send to db\n or file",command=addCardToDB)
     sendToFiOrDb.grid(row=1,column=1,padx=5,pady=2)   
-    reziseWebCam=tk.Button(master=topFrame,text="Resize Image",command=reZiseImg)
-    reziseWebCam.grid(row=0,column=2,padx=5,pady=2)   
-    reziseEntry=tk.Entry(master=topFrame,textvariable=var3)
-    reziseEntry.grid(row=1,column=2,padx=5,pady=2) 
+    
+    editSelect=tk.Button(master=topFrame,text="Edit Sellected",command=editTextBox)
+    editSelect.grid(row=0,column=2,padx=5,pady=2)   
+ 
 
 
     checkBox1=tk.Checkbutton(master=SkideFrame,text="use webcam",variable=var1,bg=dGray)
