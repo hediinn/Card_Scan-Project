@@ -1,0 +1,2 @@
+CREATE DATABASE `cards`;
+CREATE TABLE `cards`.`scanedcards` ( `SID` INT(200) NOT NULL AUTO_INCREMENT, `name` VARCHAR(40), `uuid` INT,  PRIMARY KEY (`SID`)) ENGINE = InnoDB;
