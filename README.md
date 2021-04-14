@@ -34,6 +34,11 @@ In [EasyOCR](https://github.com/JaidedAI/EasyOCR) it's noted that:
 >
 > Note 1: for Windows, please install torch and torchvision first by following the official instruction here https://pytorch.org. On pytorch website, be sure to select the right CUDA version you have. If you intend to run on CPU mode only, select CUDA = None.
 
+I also use mysql-connector, opencv-python, openpyxl, requests and Pillow
+
+i will put up a requirements.txt at some point
+
+
 ## TODO <a name = "TODO"></a>
 
 - Add a loading bar for the start of the Program
