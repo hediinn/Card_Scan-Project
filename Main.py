@@ -8,8 +8,7 @@ from PIL import Image, ImageTk
 import DbSFCVS as SQL
 import random
 import time
-#from mtgsdk import Card
-#these are the imports i will use
+
 
 
 if __name__=="__main__":
