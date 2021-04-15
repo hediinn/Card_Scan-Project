@@ -86,7 +86,7 @@ if __name__=="__main__":
                 croPD=frame[ResizeX0:ResizeX,ResizeY0:ResizeY]
                 result = reader.readtext(croPD,workers=2,detail=0,paragraph=True,slope_ths=0.1)
                 listOfCards.insert(tk.END,str(result[0]))
-            except:
+            except Exception():
                 print("test")
         elif var1.get()==0:
             try:
@@ -95,7 +95,7 @@ if __name__=="__main__":
                 croPD=frame
                 result=reader.readtext(croPD,workers=2,detail=0,paragraph=True,slope_ths=0.1)
                 listOfCards.insert(tk.END,str(result[0]))
-            except:
+            except Exception():
                 print("test")
     
     def deleteSelectedItem():
