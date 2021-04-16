@@ -5,8 +5,8 @@ from openpyxl import Workbook,load_workbook,chart
 import configparser
 import configParserMaker
 class SQL():
-  def __init__(self):
-    configParserMaker.maker()
+  def __init__(self, host="localhost",user="root",password='',database="cards"):
+    configParserMaker.maker(host, user, password, database)
     config= configparser.ConfigParser()
     config.read('config.ini')
     self.host = config['default']['host']

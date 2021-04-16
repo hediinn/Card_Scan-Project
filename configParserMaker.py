@@ -1,7 +1,7 @@
 import configparser,os
 
 class maker:
-    def __init__(self,host="localhost",user="root",password='',database="cards"):
+    def __init__(self,host,user,password,database):
         self.host = host
         self.user = user
         self.password = password
