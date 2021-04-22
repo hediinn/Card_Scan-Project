@@ -36,7 +36,7 @@ class SQL():
         mycursor.execute('INSERT INTO `scanedcards` (`name`) Values ("{}")'.format(name))
         self.mydb.commit()
 
-class CSV:
+class Xcel:
   def __init__(self):
     try:
       self.wb = load_workbook("sample.xlsx")

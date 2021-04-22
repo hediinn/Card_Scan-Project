@@ -128,7 +128,7 @@ if __name__=="__main__":
                 db.sendCard(str(listOfCards.get(i)))
                 listOfCards.selection_clear(i)
             elif var2.get()==0:
-                db = SQL.CSV()
+                db = SQL.Xcel()
                 db.InPutData(value, str(listOfCards.get(i)))
                 listOfCards.selection_clear(i)
 
