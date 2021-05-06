@@ -51,7 +51,12 @@ if __name__=="__main__":
     ResizeY0 = 150
     ResizeX = 1000
     ResizeY = 1300
-    reader = easyocr.Reader(['en'],gpu=True,model_storage_directory="tessdata")
+
+    if torch.cuda.is_available():
+        reader = easyocr.Reader(['en'],gpu=True,model_storage_directory="tessdata")
+    else:
+        reader = easyocr.Reader(['en'],gpu=False,model_storage_directory="tessdata")
+
     #This is the reader function, I chose to load it early so that the largest part of lagines is at the start 
 
 
@@ -116,9 +121,8 @@ if __name__=="__main__":
                 listOfCards.selection_clear(i)
             except notfixt:
                 print("name to wrong, fix whit entryBox")
-            
-                
-    
+
+
     def addCardToDB():
         
         sel= listOfCards.curselection()
