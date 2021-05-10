@@ -4,6 +4,7 @@ import json
 from openpyxl import Workbook,load_workbook,chart
 import configparser
 import configParserMaker
+
 class SQL():
   def __init__(self, host="localhost",user="root",password='',database="cards"):
     configParserMaker.maker(host, user, password, database)
