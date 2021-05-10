@@ -5,7 +5,7 @@ import torch
 import tkinter as tk
 from tkinter import simpledialog
 from PIL import Image, ImageTk
-import DbSFCVS as SQL
+import dataSavers as SQL
 import random
 import time
 
