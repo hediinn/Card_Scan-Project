@@ -119,7 +119,7 @@ if __name__=="__main__":
                     listOfCards.delete(i)
                     listOfCards.insert(i,checkdText)
                 listOfCards.selection_clear(i)
-            except notfixt:
+            except:
                 print("name to wrong, fix whit entryBox")
 
 
@@ -146,8 +146,9 @@ if __name__=="__main__":
         for i in sel[::-1]:
             nav= listOfCards.get(i)
             userInp = simpledialog.askstring(title="test", prompt="Current name: \n"+ str(nav)+"\n Press ok to change to what you have typed")
-            listOfCards.delete(i)
-            listOfCards.insert(i,userInp)
+            if userInp !="" :
+                listOfCards.delete(i)
+                listOfCards.insert(i,userInp)
 
 
 
