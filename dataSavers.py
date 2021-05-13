@@ -1,4 +1,5 @@
 import mysql.connector
+from mysql.connector.connection import MySQLConnection
 import requests as req
 import json
 from openpyxl import Workbook,load_workbook,chart
@@ -14,7 +15,18 @@ class SQL():
     self.user = config['default']['username']
     self.password = config['default']['password']
     self.db = config['default']['database']
-    self.mydb = mysql.connector.connect(host=self.host,user=self.user,password=self.password,database=self.db)
+    
+    myho =mysql.connector.connect(host=self.host,user=self.user,password=self.password)
+
+    with open('sqlTableCreate.sql','r') as f:
+      tesC= myho.cursor()
+      tesC.execute(f.readline())
+      tesC.execute(f.readline())
+      myho.commit()
+
+
+
+      
    
   def searchFun(self,Key):
     mycursor =self.mydb.cursor()
@@ -32,6 +44,8 @@ class SQL():
     else:
       return self.searchFun(IDK)
   def sendCard(self,name):
+        self.mydb= mysql.connector.connect(host=self.host,user=self.user,password=self.password,database=self.db)
+
         print(name)
         mycursor=self.mydb.cursor()
         mycursor.execute('INSERT INTO `scanedcards` (`name`) Values ("{}")'.format(name))
@@ -59,6 +73,6 @@ class Scryfall():
     self.parM = {'q':str(self.name)}
     self.reqa = req.api.get("https://api.scryfall.com/cards/search",params=self.parM)
     if self.reqa.status_code!= 200:
-      raise ConnectionAbortedError('Cannot fetch all tasks: {}'.format(self.reqa.status_code))
+      raise req.ConnectionError('Cannot fetch all tasks: {}'.format(self.reqa.status_code))
     self.realName = self.reqa.json()['data'][0]['name']
     self.count = self.reqa.json()['total_cards']
