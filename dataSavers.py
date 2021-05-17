@@ -25,9 +25,6 @@ class SQL():
       myho.commit()
 
 
-
-      
-   
   def searchFun(self,Key):
     mycursor =self.mydb.cursor()
     mycursor.execute("SELECT `name` FROM `cards` WHERE `name` LIKE \""+Key+"%\"")

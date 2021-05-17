@@ -9,8 +9,6 @@ import dataSavers as SQL
 import random
 import time
 
-
-
 if __name__=="__main__":
 #if __main__: sentens
 
@@ -29,7 +27,6 @@ if __name__=="__main__":
     SkideFrame = tk.Frame(window,bg=lGray,width=300,height=400,pady=2)
     topRightFrame = tk.Frame(window,bg=lGray,width=300,height=10,pady=2)
      
-
 
     #This is the grid setup for the frames
     topFrame.grid(row=0,column=0,padx=5,pady=2,sticky=tFrStic)
@@ -56,9 +53,7 @@ if __name__=="__main__":
         reader = easyocr.Reader(['en'],gpu=True,model_storage_directory="tessdata")
     else:
         reader = easyocr.Reader(['en'],gpu=False,model_storage_directory="tessdata")
-
     #This is the reader function, I chose to load it early so that the largest part of lagines is at the start 
-
 
 
     def show_frame():# This functiom shows either the test frame or the webcam feed
@@ -82,7 +77,6 @@ if __name__=="__main__":
             lmain.configure(image=imgtk)
             lmain.after(10,show_frame)
         
-    
     def rLine(): #this is a fuction that scans whats intfron of the webcam or scans the test image
         if var1.get()==1:
             try:
@@ -150,9 +144,6 @@ if __name__=="__main__":
                 listOfCards.delete(i)
                 listOfCards.insert(i,userInp)
 
-
-
-
     ScanButton=tk.Button(master=topFrame,text="Scan Frame",command=rLine)
     ScanButton.grid(row=0,column=0,padx=5,pady=2)
     
@@ -168,7 +159,6 @@ if __name__=="__main__":
     editSelect=tk.Button(master=topFrame,text="Edit Sellected",command=editTextBox)
     editSelect.grid(row=0,column=2,padx=5,pady=2)   
  
-
 
     checkBox1=tk.Checkbutton(master=SkideFrame,text="use webcam",variable=var1,bg=dGray)
     checkBox1.grid(row=0,column=0,sticky="nwes")
