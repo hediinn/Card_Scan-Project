@@ -6,3 +6,4 @@ __pycache__/DbSFCVS.cpython-38.pyc
 *.xlsx
 *.ini
 newmain.py
+workspace.code-workspace
