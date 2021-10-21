@@ -56,7 +56,6 @@ class Xcel:
       self.wb = Workbook()
     # grab the active worksheet
     self.ws = self.wb.active
-  # Data can be assigned directly to cells
   
   def InPutData(self,ID,name):
     self.ws.append([ID,name])

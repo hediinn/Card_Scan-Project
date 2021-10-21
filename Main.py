@@ -46,7 +46,7 @@ if __name__=="__main__":
     var3 = tk.StringVar()
     ResizeX0 = 200
     ResizeY0 = 150
-    ResizeX = 1000
+    ResizeX = 300
     ResizeY = 1300
 
     if torch.cuda.is_available():
